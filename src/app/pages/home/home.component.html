@@ -1,0 +1,9 @@
+<button
+  tuiButton
+  type="button"
+  (click)="toggle(true)"
+  (tuiActiveZoneChange)="toggle($event)">
+  My Projects
+  <app-projects-sidebar *tuiSidebar="open; direction: 'right'">
+  </app-projects-sidebar>
+</button>

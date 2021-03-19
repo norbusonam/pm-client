@@ -1,0 +1,35 @@
+<tui-accordion class="container" [rounded]="false">
+  <tui-accordion-item [open]="true">
+    Pinned Projects
+    <ng-template tuiAccordionItemContent>
+      <a
+        *ngFor="let project of myPinnedProjects"
+        tuiLink
+        class="project-button">
+        {{project}}
+      </a>
+    </ng-template>
+  </tui-accordion-item>
+  <tui-accordion-item>
+    My Projects
+    <ng-template tuiAccordionItemContent>
+      <a
+        *ngFor="let project of myProjects"
+        tuiLink
+        class="project-button">
+        {{project}}
+      </a>
+    </ng-template>
+  </tui-accordion-item>
+  <tui-accordion-item>
+    Shared Projects
+    <ng-template tuiAccordionItemContent>
+      <a
+        *ngFor="let project of sharedProjects"
+        tuiLink
+        class="project-button">
+        {{project}}
+      </a>
+    </ng-template>
+  </tui-accordion-item>
+</tui-accordion>
