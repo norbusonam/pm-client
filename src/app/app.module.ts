@@ -9,7 +9,6 @@ import {
   TUI_ICONS_PATH,
   TuiButtonModule,
   TuiNotificationsModule,
-  TuiLinkModule,
 } from '@taiga-ui/core';
 import { 
   TuiAccordionModule,
@@ -21,6 +20,7 @@ import {
   TuiSidebarModule
 } from '@taiga-ui/addon-mobile';
 import { TuiActiveZoneModule } from '@taiga-ui/cdk';
+import { HttpClientModule } from '@angular/common/http';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -41,6 +41,7 @@ import { ProjectsSidebarComponent } from './components/projects-sidebar/projects
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     TuiRootModule,
     TuiTabsModule,
     TuiInputModule,

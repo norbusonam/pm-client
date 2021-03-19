@@ -34,6 +34,7 @@
           <button
             tuiButton
             type="submit"
+            [disabled]="loginForm.invalid"
             [showLoader]="isLoading">
             Login
           </button>
@@ -73,6 +74,7 @@
           <button
             tuiButton
             type="submit"
+            [disabled]="signupForm.invalid"
             [showLoader]="isLoading">
             Signup
           </button>

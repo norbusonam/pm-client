@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TuiNotificationsService } from '@taiga-ui/core';
+import { TuiNotification, TuiNotificationsService } from '@taiga-ui/core';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +27,8 @@ export class AuthComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private notificationsService: TuiNotificationsService,
+    private api: ApiService,
+    private notificationsService: TuiNotificationsService
   ) { }
 
   ngOnInit(): void {
@@ -35,14 +37,45 @@ export class AuthComponent implements OnInit {
 
   onLogin() {
     this.isLoading = true;
-    // TODO: hit api
-    this.router.navigate(['home']);
+    this.api.login(this.loginForm.value).subscribe(
+      () => {
+        this.router.navigate(['home']);
+      },
+      err => {
+        this.notificationsService.show(
+          err.error.msg,
+          {
+            label: 'Login error',
+            status: TuiNotification.Error,
+          },
+        ).subscribe()
+        this.isLoading = false;
+      },
+    )
   }
 
   onSignup() {
+    const signupPayload = {
+      fullName: this.signupForm.value.fullName,
+      email: this.signupForm.value.email,
+      password: this.signupForm.value.password,
+    }
     this.isLoading = true;
-    // TODO: hit api
-    this.router.navigate(['home']);
+    this.api.signup(signupPayload).subscribe(
+      () => {
+        this.router.navigate(['home']);
+      },
+      err => {
+        this.notificationsService.show(
+          err.error.msg,
+          {
+            label: 'Signup error',
+            status: TuiNotification.Error,
+          },
+        ).subscribe()
+        this.isLoading = false;
+      },
+    )
   }
 
 }

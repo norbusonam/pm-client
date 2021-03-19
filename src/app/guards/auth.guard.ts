@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { 
   CanActivate,
-  ActivatedRouteSnapshot,
-  RouterStateSnapshot,
-  UrlTree,
   Router
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 import { ApiService } from '../services/api.service';
 
 @Injectable({
@@ -20,17 +19,17 @@ export class AuthGuard implements CanActivate {
     public router: Router,
   ) {  }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot,
-  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // TODO: make auth query
-    const isAuthenticated = true;
-    if (!isAuthenticated) {
-      this.router.navigate(['login']);
-      return false;
-    }
-    return true;
+  canActivate(): Observable<boolean> {
+    return this.api.getAuthStatus().pipe(
+      map(authStatus => { 
+        console.log(authStatus)
+        if (!authStatus) {
+          this.router.navigate(['login']);
+          return false;
+        }
+        return true;
+      })
+    )
   }
   
 }
